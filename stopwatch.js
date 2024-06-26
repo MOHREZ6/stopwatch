@@ -4,12 +4,14 @@ let resetBtn = document.getElementById("reset");
 let lapBtn = document.getElementById("lap");
 let timerEl = document.getElementById("timer");
 let laps = document.getElementById("laps");
+let laps2 = document.getElementById("laps2");
+const myDiv = document.getElementById('myDiv');   
 let container = document.getElementById("container");
 
 let startTime = 0;
 let elapsedTime = 0;
 let timerInterval;
-
+let lapCounter=0;
 function startTimer() {
   startTime = Date.now() - elapsedTime;
 
@@ -48,17 +50,42 @@ function resetTimer() {
   let elapsedTime = 0;
   timerEl.textContent = "00:00:00.00";
   laps.innerHTML = "";
+  laps2.innerHTML="";
   startBtn.disabled = false;
 }
 let i = 0;
 function lapsRecord() {
+  
+  lapCounter++;
+  const lapNumberCell = document.createElement('p');
+  lapNumberCell.textContent = lapCounter;
+  
+  
+  lapNumberCell.style.color = "#ffffff";
+  lapNumberCell.style.fontSize="large";
+  lapNumberCell.style.textAlign = "centre";
+  lapNumberCell.style.borderBottom = "1px solid  #807d7d";
+  
   i++;
+   
+   
+  let newLITag = document.createElement("p");
 
-  let newLITag = document.createElement("li");
   newLITag.innerHTML = formatTime(elapsedTime);
-  newLITag.style.color = "white";
-  laps.append(newLITag);
+  newLITag.style.color = "#FFFFFF";
+  newLITag.style.fontSize="large";
+  newLITag.style.textAlign = "end";
+  newLITag.style.borderBottom = "1px solid  #807d7d";
+  
+  var seaTea= myDiv.appendChild(newLITag);
+  var seaTea2= myDiv.appendChild(lapNumberCell);
+
+  laps.append(seaTea);
+  laps2.append(lapNumberCell);
 }
+
+
+
 startBtn.addEventListener("click", startTimer);
 pauseBtn.addEventListener("click", pauseTimer);
 resetBtn.addEventListener("click", resetTimer);
